@@ -3,6 +3,7 @@ import type { Field } from 'payload/types'
 import { localeSelect } from './fields/localeSelect'
 import { createLocalizedField } from './fields/localizedField'
 import { filterDocument } from './utils/filterDocument'
+import { normalizeLocales } from './utils/normalizeLocales'
 
 type PayloadField = Field & {
   fields?: PayloadField[]
@@ -18,19 +19,6 @@ export interface LocaleObject {
 }
 
 export type ConfigLocales = string[] | LocaleObject[]
-
-const normalizeLocales = (locales: ConfigLocales): LocaleObject[] => {
-  if (!locales.length) return []
-
-  if (typeof locales[0] === 'string') {
-    return (locales as string[]).map(locale => ({
-      code: locale,
-      label: locale,
-    }))
-  }
-
-  return locales as LocaleObject[]
-}
 
 const validateAndCleanFields = (
   fields: PayloadField[],
