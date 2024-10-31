@@ -40,6 +40,27 @@ export default buildConfig({
 })
 ```
 
+### Marking fields for localization
+To mark a field for localization you have to add the `localizable` property to the field's `custom` property.
+The plugin will automatically create a new field for each locale in the collection.
+
+The usage of `custom` was necessary to avoid collisions with Payload's localizations.
+
+```typescript
+export default {
+  fields: [
+    {
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      required: true,
+      custom: {
+        localizable: true
+      }
+    }
+  ]
+}
+```
 ### Todo
 - [ ] Add more tests
 - [ ] Add more documentation
