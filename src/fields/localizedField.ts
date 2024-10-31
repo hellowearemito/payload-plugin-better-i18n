@@ -1,11 +1,8 @@
-import { Field } from 'payload'
+import type { Field } from 'payload/types'
 
 import type { Locale } from './localeSelect'
 
-export const createLocalizedField = (
-  field: Field,
-  locales: Locale[],
-): Field[] =>
+export const createLocalizedField = (field: Field, locales: Locale[]): Field[] =>
   locales.flatMap(({ code, label }) => ({
     ...field,
     // @ts-expect-error

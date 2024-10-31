@@ -1,6 +1,6 @@
-import { LocaleObject } from '@/plugins/i18n'
+import type { LocaleObject } from '../index'
 
-type FilterOptions = {
+interface FilterOptions {
   localeSet: Set<string>
   localeSuffix: string
   localeSuffixLen: number
@@ -29,15 +29,18 @@ const filterNestedDocument = (
   const filteredDoc: Record<string, any> = {}
 
   for (const [key, value] of Object.entries(doc)) {
+    // eslint-disable-next-line no-continue
     if (key === 'better_i18n_locale') continue
 
     if (key.endsWith(localeSuffix)) {
       const baseKey = key.slice(0, -localeSuffixLen)
       filteredDoc[baseKey] = filterValue(value, options)
+      // eslint-disable-next-line no-continue
       continue
     }
 
     let hasLocaleSuffix = false
+    // @ts-expect-error
     for (const localeCode of localeSet) {
       if (key.endsWith(`_${localeCode}`)) {
         hasLocaleSuffix = true
